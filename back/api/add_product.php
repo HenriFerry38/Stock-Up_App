@@ -23,6 +23,27 @@ if (!$nom || !$categorie || $quantite < 0 || $seuil < 0) {
     exit;
 }
 
+$check = $pdo->prepare("
+    SELECT id_produit
+    FROM produit
+    WHERE id_utilisateur = :id_utilisateur
+    AND nom = :nom
+");
+
+$check->execute([
+    'id_utilisateur' => $userId,
+    'nom' => $nom
+]);
+
+if ($check->fetch()) {
+    http_response_code(409);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Ce produit existe déjà dans votre stock'
+    ]);
+    exit;
+}
+
 $stmt = $pdo->prepare("
     INSERT INTO produit 
     (nom, categorie, quantite_stock, seuil_minimum, id_utilisateur)

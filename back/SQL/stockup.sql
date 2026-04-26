@@ -27,7 +27,7 @@ CREATE TABLE produit (
         ON DELETE CASCADE
 );
 
-CREATE TABLE ligne_liste_courses (
+CREATE TABLE liste_courses (
     id_ligne INT AUTO_INCREMENT PRIMARY KEY,
     quantite_souhaitee INT NOT NULL DEFAULT 1,
     statut VARCHAR(50) NOT NULL DEFAULT 'a_acheter',
