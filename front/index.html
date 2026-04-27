@@ -1,132 +1,195 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Stock’Up</title>
-  <link rel="stylesheet" href="css/style.css" />
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Stock’Up</title>
+        <link rel="stylesheet" href="css/style.css" />
+    </head>
+    <body>
+        <div class="app-layout">
+            <aside class="sidebar">
+                <div class="sidebar-logo" id="logo-home" style="cursor: pointer;">
+                <div class="logo-box">
+                    <img src="images/Logo_StockUp.png" alt="Logo Stock’Up">
+                </div>
+                </div>
 
-<div class="app-layout">
+                <nav>
+                <a href="#" class="nav-link active" data-view="dashboard">Tableau de bord</a>
+                <a href="#" class="nav-link" data-view="stock">Mon Stock</a>
+                <a href="#" class="nav-link" data-view="shopping">Liste de courses</a>
+                </nav>
+            </aside>
 
-  <aside class="sidebar">
-    <div class="sidebar-logo" id="logo-home" style="cursor: pointer;">
-      <div class="logo-box">
-        <img src="images/Logo_StockUp.png" alt="Logo Stock’Up">
-      </div>
-    </div>
+            <div class="main-panel">
+                <header class="header">
+                    <div>
+                        <h1>Bonjour <span id="user-prenom">Utilisateur</span> !</h1>
+                        <p>Gérez votre stock et vos courses facilement</p>
+                    </div>
 
-    <nav>
-      <a href="#" class="nav-link active" data-view="dashboard">Tableau de bord</a>
-      <a href="#" class="nav-link" data-view="stock">Mon Stock</a>
-      <a href="#" class="nav-link" data-view="shopping">Liste de courses</a>
-    </nav>
-  </aside>
+                    <div class="user-box">
+                        <strong id="user-fullname">Utilisateur</strong><br>
+                        <button id="logout-btn" class="logout-link">Déconnexion</button>
+                    </div>
+                </header>
 
-  <div class="main-panel">
-    <header class="header">
-      <div>
-        <h1>Bonjour <span id="user-prenom">Utilisateur</span> !</h1>
-        <p>Gérez votre stock et vos courses facilement</p>
-      </div>
+                <main class="dashboard">
+                <section data-section="dashboard" class="view-section">
+                    <section class="card add-product-card">
+                        <h2>Ajouter un produit</h2>
 
-      <div class="user-box">
-        <strong id="user-fullname">Utilisateur</strong><br>
-        <button id="logout-btn" class="logout-link">Déconnexion</button>
-      </div>
-    </header>
+                        <form id="product-form" class="product-form">
+                        <div class="form-group">
+                            <label for="nom">Nom du produit</label>
+                            <input type="text" id="nom" placeholder="ex: Pâtes" required />
+                        </div>
 
-    <main class="dashboard">
-     <section data-section="dashboard" class="view-section">
-      <section class="card add-product-card">
-        <h2>Ajouter un produit</h2>
+                        <div class="form-group">
+                            <label for="categorie">Catégorie</label>
+                            <input type="text" id="categorie" placeholder="ex: Féculents" required />
+                        </div>
 
-        <form id="product-form" class="product-form">
-          <div class="form-group">
-            <label for="nom">Nom du produit</label>
-            <input type="text" id="nom" placeholder="ex: Pâtes" required />
-          </div>
+                        <div class="form-group">
+                            <label for="quantite">Quantité</label>
+                            <input type="number" id="quantite" placeholder="ex: 2" required />
+                        </div>
 
-          <div class="form-group">
-            <label for="categorie">Catégorie</label>
-            <input type="text" id="categorie" placeholder="ex: Féculents" required />
-          </div>
+                        <div class="form-group">
+                            <label for="seuil">Seuil minimum</label>
+                            <input type="number" id="seuil" placeholder="ex: 2" required />
+                        </div>
 
-          <div class="form-group">
-            <label for="quantite">Quantité</label>
-            <input type="number" id="quantite" placeholder="ex: 2" required />
-          </div>
+                        <button type="submit" class="btn btn-primary">Ajouter +</button>
+                        </form>
+                    </section>
 
-          <div class="form-group">
-            <label for="seuil">Seuil minimum</label>
-            <input type="number" id="seuil" placeholder="ex: 2" required />
-          </div>
+                    <section class="card stock-card">
+                        <div class="card-title-row">
+                        <h2>Mon stock</h2>
+                        <button id="view-stock-btn" class="btn btn-small btn-primary">
+                            Voir tout le stock
+                        </button>
+                        </div>
 
-          <button type="submit" class="btn btn-primary">Ajouter +</button>
-        </form>
-      </section>
+                        <div class="toolbar">
+                        <input type="text" id="search-product" placeholder="Rechercher un produit..." />
+                        <select id="category-filter">
+                            <option value="">Toutes les catégories</option>
+                        </select>
+                        </div>
 
-      <section class="card stock-card">
-        <div class="card-title-row">
-          <h2>Mon stock</h2>
-          <button id="view-stock-btn" class="btn btn-small btn-primary">
-            Voir tout le stock
-          </button>
+                        <div id="product-list"></div>
+                    </section>
+
+                    <section class="card shopping-card">
+                        <div class="card-title-row">
+                            <h2>Ma Liste de courses</h2>
+                            <button id="view-shopping-btn" class="btn btn-small btn-primary">
+                                Voir la liste
+                            </button>
+                        </div>
+                        <button id="generate-btn" class="btn generate-btn">
+                            Générer la liste
+                        </button>
+                        <div id="shopping-list"></div>
+                    </section>
+                </section>
+
+                <!-- Vue Stock complet -->
+                <section data-section="stock" class="view-section hidden">
+                    <section class="card full-card">
+                        <h2>Tout mon stock</h2>
+                        <div class="toolbar">
+                            <input type="text" id="full-search-product" placeholder="Rechercher un produit..." />
+                            <select id="full-category-filter">
+                                <option value="">Toutes les catégories</option>
+                            </select>
+                        </div>
+                        <div id="full-product-list"></div>
+                    </section>
+                </section>
+
+                <!-- Vue Liste complète -->
+                <section data-section="shopping" class="view-section hidden">
+                    <section class="card full-card">
+                        <h2>Toute ma liste de courses</h2>
+                        <button id="generate-full-btn" class="btn btn-primary generate-btn">
+                        Générer la liste
+                        </button>
+                        <div id="full-shopping-list"></div>
+                    </section>
+                </section>
+
+                </main>
+
+                <footer class="app-footer">
+                <a href="#" class="support-btn">Support Technique</a>
+                </footer>
+            </div>
+
         </div>
 
-        <div class="toolbar">
-          <input type="text" id="search-product" placeholder="Rechercher un produit..." />
-          <select id="category-filter">
-            <option value="">Toutes les catégories</option>
-          </select>
+        <div id="edit-modal" class="modal hidden">
+            <div class="modal-card">
+                <h2>Modifier le produit</h2>
+
+                <form id="edit-product-form" class="form">
+                <input type="hidden" id="edit-id" />
+
+                <div class="form-group">
+                    <label for="edit-nom">Nom</label>
+                    <input type="text" id="edit-nom" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="categorie">Catégorie</label>
+
+                    <select id="categorie-select">
+                        <option value="">Nouvelle catégorie</option>
+                    </select>
+
+                    <input
+                        type="text"
+                        id="categorie"
+                        placeholder="ex: Féculents"
+                        required
+                    />
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-quantite">Quantité</label>
+                    <input type="number" id="edit-quantite" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-seuil">Seuil minimum</label>
+                    <input type="number" id="edit-seuil" required />
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" id="cancel-edit-btn" class="btn btn-secondary">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+                </form>
+            </div>
         </div>
 
-        <div id="product-list"></div>
-      </section>
+        <div id="delete-modal" class="modal hidden">
+            <div class="modal-card modal-card-small">
+                <h2>Supprimer le produit ?</h2>
+                <p>Cette action supprimera le produit de votre stock.</p>
 
-      <section class="card shopping-card">
-        <div class="card-title-row">
-            <h2>Ma Liste de courses</h2>
-            <button id="view-shopping-btn" class="btn btn-small btn-primary">
-                Voir la liste
-            </button>
+                <input type="hidden" id="delete-id" />
+
+                <div class="modal-actions">
+                    <button type="button" id="cancel-delete-btn" class="btn btn-secondary">Annuler</button>
+                    <button type="button" id="confirm-delete-btn" class="btn btn-danger">Supprimer</button>
+                </div>
+            </div>
         </div>
-        <button id="generate-btn" class="btn generate-btn">
-            Générer la liste
-        </button>
-        <div id="shopping-list"></div>
-      </section>
-     </section>
 
-     <!-- Vue Stock complet -->
-     <section data-section="stock" class="view-section hidden">
-        <section class="card full-card">
-            <h2>Tout mon stock</h2>
-            <div id="full-product-list"></div>
-        </section>
-     </section>
-
-     <!-- Vue Liste complète -->
-     <section data-section="shopping" class="view-section hidden">
-        <section class="card full-card">
-            <h2>Toute ma liste de courses</h2>
-            <button id="generate-full-btn" class="btn btn-primary generate-btn">
-            Générer la liste
-            </button>
-            <div id="full-shopping-list"></div>
-        </section>
-     </section>
-
-    </main>
-
-    <footer class="app-footer">
-      <a href="#" class="support-btn">Support Technique</a>
-    </footer>
-  </div>
-
-</div>
-
-<script src="js/app.js"></script>
-</body>
+        <script src="js/app.js"></script>
+    </body>
 </html>
