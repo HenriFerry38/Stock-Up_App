@@ -1,4 +1,6 @@
-const API = "http://localhost:8000/back/api";
+const API = "http://localhost:8080/back/api";
+//API_URL Docker = "http://localhost:8080/back/api";
+//API Local Php = "http://localhost:8000/back/api";
 
 let allProducts = [];
 

@@ -1,4 +1,7 @@
-const API_URL = "http://localhost:8000/back/api";
+const API_URL = "http://localhost:8080/back/api";
+//API_URL Docker = "http://localhost:8080/back/api";
+//API Local Php = "http://localhost:8000/back/api";
+
 
 const loginForm = document.getElementById("login-form");
 const registerForm = document.getElementById("register-form");
