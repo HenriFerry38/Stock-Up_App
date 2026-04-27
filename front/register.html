@@ -24,22 +24,41 @@
           <div class="form-group">
             <label for="nom">Nom</label>
             <input type="text" id="nom" placeholder="Dupont" required />
+            <small id="nom-hint" class="form-hint">Champ requis</small>
           </div>
 
           <div class="form-group">
             <label for="prenom">Prénom</label>
             <input type="text" id="prenom" placeholder="Jean" required />
+            <small id="prenom-hint"  class="form-hint">Champ requis</small>
           </div>
         </div>
 
         <div class="form-group">
           <label for="email">Email</label>
           <input type="email" id="email" placeholder="exemple@email.com" required />
+          <small id="email-hint" class="form-hint">Format attendu : exemple@email.com</small>
         </div>
 
         <div class="form-group">
           <label for="password">Mot de passe</label>
           <input type="password" id="password" placeholder="************" required />
+          <small id="password-hint" class="form-hint">
+            Minimum 8 caractères, avec 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label for="confirm-password">Confirmer le mot de passe</label>
+          <input 
+            type="password" 
+            id="confirm-password" 
+            placeholder="************" 
+            required 
+          />
+          <small id="confirm-password-hint" class="form-hint">
+            Doit être identique au mot de passe
+          </small>
         </div>
 
         <button type="submit" class="btn btn-primary">S’inscrire</button>
