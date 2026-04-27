@@ -45,6 +45,8 @@ async function loadProducts() {
   });
 
   const data = await res.json();
+  
+  console.log("API PRODUCTS:", data.products);
 
   allProducts = data.products;
   fillCategoryFilter(allProducts);
@@ -289,6 +291,8 @@ function initModals() {
 }
 
 function openEditProduct(product) {
+  fillCategoryFilter(allProducts);
+
   document.getElementById("edit-id").value = product.id_produit;
   document.getElementById("edit-nom").value = product.nom;
   document.getElementById("edit-categorie").value = product.categorie;
@@ -345,9 +349,9 @@ function fillCategoryFilter(products) {
 
   const filterSelect = document.getElementById("category-filter");
 
-  const addSelect = document.getElementById("categorie-select");
-
   const fullFilterSelect = document.getElementById("full-category-filter");
+
+  const datalist = document.getElementById("categories-list");
 
   const categories = [...new Set(
     products
@@ -372,23 +376,6 @@ function fillCategoryFilter(products) {
     filterSelect.value = currentValue;
   }
 
-  // select categorie
-
-  if (addSelect) {
-    const currentValue = addSelect.value;
-
-    addSelect.innerHTML = `<option value="">Nouvelle catégorie</option>`;
-
-    categories.forEach((category) => {
-      const option = document.createElement("option");
-      option.value = category;
-      option.textContent = category;
-      addSelect.appendChild(option);
-    });
-
-    addSelect.value = currentValue;
-  }
-
   // select Full
   if (fullFilterSelect) {
     const currentValue = fullFilterSelect.value;
@@ -404,7 +391,18 @@ function fillCategoryFilter(products) {
 
     fullFilterSelect.value = currentValue;
   }
+
+  if (datalist) {
+    datalist.innerHTML = "";
+
+    categories.forEach((category) => {
+      const option = document.createElement("option");
+      option.value = category;
+      datalist.appendChild(option);
+    });
+  }
 }
+
 
 function applyProductFilters() {
   const searchValue = document.getElementById("search-product")?.value.toLowerCase().trim() || "";
