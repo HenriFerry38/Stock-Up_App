@@ -4,7 +4,7 @@
   --green: #3f933e;
   --green-dark: #2f6f29;
   --green-soft: #dff1dc;
-  --bg: #f3f8f2;
+  --bg: #CBE5C5;
   --card: #ffffff;
   --text: #111827;
   --muted: #6b7280;
@@ -247,7 +247,7 @@ select:focus {
 }
 
 .header {
-  background: #fff;
+  background: var(--bg);
   padding: 22px 28px;
   display: flex;
   justify-content: space-between;
@@ -585,7 +585,7 @@ select:focus {
   .header {
     margin: 8px;
     padding: 12px;
-    background: #ffffff;
+    background:var(--bg);
     color: var(--text);
     border-radius: 10px;
     box-shadow: var(--shadow);
@@ -670,16 +670,22 @@ select:focus {
 
   .card-title-row {
     display: flex;
-    flex-direction: column; 
-    align-items: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     gap: 8px;
   }
 
+  .card-title-row h2 {
+    margin: 0;
+  }
+
   .card-title-row .btn {
-    align-self: flex-start;
+    align-self: center;
     min-height: 28px;
     padding: 0 10px;
     font-size: 0.72rem;
+    white-space: nowrap;
   }
 
   .toolbar {
