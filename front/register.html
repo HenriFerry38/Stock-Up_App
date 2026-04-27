@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stock’Up Inscription</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="auth-page">
+  <main class="auth-shell">
+    <header class="auth-top">
+      <div class="logo-box">
+        <img src="images/Logo_Stockup.png" alt="Logo Stock'Up" />
+      </div>
+    </header>
+
+    <p class="auth-subtitle">Créez votre espace personnel</p>
+
+    <section class="auth-card">
+      <h2>Inscription</h2>
+
+      <form id="register-form" class="form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" placeholder="Dupont" required />
+          </div>
+
+          <div class="form-group">
+            <label for="prenom">Prénom</label>
+            <input type="text" id="prenom" placeholder="Jean" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="exemple@email.com" required />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input type="password" id="password" placeholder="************" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">S’inscrire</button>
+      </form>
+
+      <p class="auth-link">
+        Déjà un compte ?
+        <a href="login.html">Se connecter</a>
+      </p>
+
+      <p id="register-message" class="message"></p>
+    </section>
+
+    <footer class="support-footer">
+      <a class="support-btn" href="#">Support Technique</a>
+    </footer>
+  </main>
+
+  <script src="js/auth.js"></script>
+</body>
