@@ -11,16 +11,16 @@
 <div class="app-layout">
 
   <aside class="sidebar">
-    <div class="sidebar-logo">
+    <div class="sidebar-logo" id="logo-home" style="cursor: pointer;">
       <div class="logo-box">
         <img src="images/Logo_StockUp.png" alt="Logo Stock’Up">
       </div>
     </div>
 
     <nav>
-      <a href="#" class="nav-link active">Tableau de bord</a>
-      <a href="#" class="nav-link">Mon Stock</a>
-      <a href="#" class="nav-link">Liste de courses</a>
+      <a href="#" class="nav-link active" data-view="dashboard">Tableau de bord</a>
+      <a href="#" class="nav-link" data-view="stock">Mon Stock</a>
+      <a href="#" class="nav-link" data-view="shopping">Liste de courses</a>
     </nav>
   </aside>
 
@@ -38,7 +38,7 @@
     </header>
 
     <main class="dashboard">
-
+     <section data-section="dashboard" class="view-section">
       <section class="card add-product-card">
         <h2>Ajouter un produit</h2>
 
@@ -70,7 +70,9 @@
       <section class="card stock-card">
         <div class="card-title-row">
           <h2>Mon stock</h2>
-          <button class="btn btn-small btn-primary">Voir tout le stock</button>
+          <button id="view-stock-btn" class="btn btn-small btn-primary">
+            Voir tout le stock
+          </button>
         </div>
 
         <div class="toolbar">
@@ -84,10 +86,37 @@
       </section>
 
       <section class="card shopping-card">
-        <h2>Ma Liste de courses</h2>
-        <button id="generate-btn" class="btn btn-primary generate-btn">Générer la liste</button>
+        <div class="card-title-row">
+            <h2>Ma Liste de courses</h2>
+            <button id="view-shopping-btn" class="btn btn-small btn-primary">
+                Voir la liste
+            </button>
+        </div>
+        <button id="generate-btn" class="btn generate-btn">
+            Générer la liste
+        </button>
         <div id="shopping-list"></div>
       </section>
+     </section>
+
+     <!-- Vue Stock complet -->
+     <section data-section="stock" class="view-section hidden">
+        <section class="card full-card">
+            <h2>Tout mon stock</h2>
+            <div id="full-product-list"></div>
+        </section>
+     </section>
+
+     <!-- Vue Liste complète -->
+     <section data-section="shopping" class="view-section hidden">
+        <section class="card full-card">
+            <h2>Toute ma liste de courses</h2>
+            <button id="generate-full-btn" class="btn btn-primary generate-btn">
+            Générer la liste
+            </button>
+            <div id="full-shopping-list"></div>
+        </section>
+     </section>
 
     </main>
 

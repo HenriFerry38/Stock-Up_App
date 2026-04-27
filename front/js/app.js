@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   loadUser();
   loadProducts();
   loadShoppingList();
+  initNavigation();
 });
 
 async function loadUser() {
@@ -34,36 +35,21 @@ async function loadProducts() {
   });
 
   const data = await res.json();
-  const container = document.getElementById("product-list");
 
-  container.innerHTML = "";
+  const dashboardContainer = document.getElementById("product-list");
+  const fullContainer = document.getElementById("full-product-list");
 
-  data.products.forEach((p) => {
-    const div = document.createElement("div");
-    div.className = "product-card";
+  if (dashboardContainer) dashboardContainer.innerHTML = "";
+  if (fullContainer) fullContainer.innerHTML = "";
 
-    const low = Number(p.quantite_stock) <= Number(p.seuil_minimum);
+  data.products.forEach((product) => {
+    if (dashboardContainer) {
+      dashboardContainer.appendChild(renderProductCard(product));
+    }
 
-    div.innerHTML = `
-      <div class="product-main">
-        <strong>${escapeHtml(p.nom)}</strong>
-        <span class="product-category">${escapeHtml(p.categorie)}</span>
-        <div class="product-meta">
-          Quantité : ${p.quantite_stock} | Seuil min. : ${p.seuil_minimum}
-        </div>
-      </div>
-
-      <span class="badge ${low ? "badge-low" : "badge-ok"}">
-        ${low ? "Stock bas" : "OK"}
-      </span>
-
-      <div class="actions">
-        <button class="btn btn-small btn-primary">Modifier</button>
-        <button class="btn btn-small btn-danger">Supprimer</button>
-      </div>
-    `;
-
-    container.appendChild(div);
+    if (fullContainer) {
+      fullContainer.appendChild(renderProductCard(product));
+    }
   });
 }
 
@@ -73,22 +59,21 @@ async function loadShoppingList() {
   });
 
   const data = await res.json();
-  const container = document.getElementById("shopping-list");
 
-  container.innerHTML = "";
+  const dashboardContainer = document.getElementById("shopping-list");
+  const fullContainer = document.getElementById("full-shopping-list");
+
+  if (dashboardContainer) dashboardContainer.innerHTML = "";
+  if (fullContainer) fullContainer.innerHTML = "";
 
   data.shopping_list.forEach((item) => {
-    const div = document.createElement("div");
-    div.className = "shopping-item";
+    if (dashboardContainer) {
+      dashboardContainer.appendChild(renderShoppingItem(item));
+    }
 
-    div.innerHTML = `
-      <span class="checkbox-fake"></span>
-      <strong>${escapeHtml(item.nom)}</strong>
-      <span>x ${item.quantite_souhaitee}</span>
-      <button class="buy-btn" onclick="buy(${item.id_ligne})">🛒</button>
-    `;
-
-    container.appendChild(div);
+    if (fullContainer) {
+      fullContainer.appendChild(renderShoppingItem(item));
+    }
   });
 }
 
@@ -111,12 +96,15 @@ document.getElementById("product-form").addEventListener("submit", async (e) => 
   loadProducts();
 });
 
-document.getElementById("generate-btn").addEventListener("click", async () => {
+async function generateShoppingList() {
   await fetch(`${API}/generate_list.php`, {
     method: "POST",
     credentials: "include"
   });
+}
 
+document.getElementById("generate-btn").addEventListener("click", async () => {
+  await generateShoppingList();
   loadShoppingList();
 });
 
@@ -139,6 +127,94 @@ document.getElementById("logout-btn").addEventListener("click", async () => {
 
   window.location.href = "login.html";
 });
+
+function initNavigation() {
+  document.querySelectorAll(".nav-link").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      showView(link.dataset.view);
+    });
+  });
+  
+  document.getElementById("logo-home")?.addEventListener("click", () => {
+    showView("dashboard");
+  });
+
+  document.getElementById("view-stock-btn")?.addEventListener("click", () => {
+    showView("stock");
+  });
+
+  document.getElementById("generate-full-btn")?.addEventListener("click", async () => {
+    await generateShoppingList();
+    loadShoppingList();
+  });
+
+  document.getElementById("view-shopping-btn")?.addEventListener("click", () => {
+    showView("shopping");
+  });
+}
+
+function showView(viewName) {
+  document.querySelectorAll("[data-section]").forEach((section) => {
+    section.classList.add("hidden");
+  });
+
+  document.querySelector(`[data-section="${viewName}"]`)?.classList.remove("hidden");
+
+  document.querySelectorAll(".nav-link").forEach((link) => {
+    link.classList.toggle("active", link.dataset.view === viewName);
+  });
+
+  if (viewName === "stock") {
+    loadProducts();
+  }
+
+  if (viewName === "shopping") {
+    loadShoppingList();
+  }
+}
+
+function renderProductCard(p) {
+  const div = document.createElement("div");
+  div.className = "product-card";
+
+  const low = Number(p.quantite_stock) <= Number(p.seuil_minimum);
+
+  div.innerHTML = `
+    <div class="product-main">
+      <strong>${escapeHtml(p.nom)}</strong>
+      <span class="product-category">${escapeHtml(p.categorie)}</span>
+      <div class="product-meta">
+        Quantité : ${p.quantite_stock} | Seuil min. : ${p.seuil_minimum}
+      </div>
+    </div>
+
+    <span class="badge ${low ? "badge-low" : "badge-ok"}">
+      ${low ? "Stock bas" : "OK"}
+    </span>
+
+    <div class="actions">
+      <button class="btn btn-small btn-primary">Modifier</button>
+      <button class="btn btn-small btn-danger">Supprimer</button>
+    </div>
+  `;
+
+  return div;
+}
+
+function renderShoppingItem(item) {
+  const div = document.createElement("div");
+  div.className = "shopping-item";
+
+  div.innerHTML = `
+    <span class="checkbox-fake"></span>
+    <strong>${escapeHtml(item.nom)}</strong>
+    <span>x ${item.quantite_souhaitee}</span>
+    <button class="buy-btn" onclick="buy(${item.id_ligne})">🛒</button>
+  `;
+
+  return div;
+}
 
 function escapeHtml(value = "") {
   return String(value)

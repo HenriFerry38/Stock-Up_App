@@ -218,11 +218,16 @@ select:focus {
 .sidebar-logo {
   text-align: center;
   margin-bottom: 24px;
+  cursor: pointer;
+  transition: transform 0.2s;
 }
 
 .sidebar-logo .logo-box {
   width: 66px;
   height: 66px;
+}
+.sidebar-logo:hover {
+  transform: scale(1.05);
 }
 
 .nav-link {
@@ -385,6 +390,13 @@ select:focus {
   color: white;
 }
 
+.generate-btn {
+    width: 100%;
+    margin-bottom: 10px;
+    background: var(--green-dark);
+    color: #fff;
+  }
+
 .shopping-item {
   display: grid;
   grid-template-columns: auto 1fr auto auto;
@@ -421,6 +433,18 @@ select:focus {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.view-section {
+  display: contents;
+}
+
+.full-card {
+  grid-column: 1 / -1;
 }
 
 /* ---------- RESPONSIVE ---------- */
