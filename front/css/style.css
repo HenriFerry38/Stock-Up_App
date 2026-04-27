@@ -114,6 +114,22 @@ a {
   gap: 12px;
 }
 
+.form-hint {
+  display: block;
+  font-size: 0.75rem;
+  color: #6b7280; 
+  margin-top: 4px;
+  font-style: italic;
+}
+
+.form-hint.valid {
+  color: #16a34a; 
+}
+
+.form-hint.error {
+  color: #dc2626; 
+}
+
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -218,11 +234,16 @@ select:focus {
 .sidebar-logo {
   text-align: center;
   margin-bottom: 24px;
+  cursor: pointer;
+  transition: transform 0.2s;
 }
 
 .sidebar-logo .logo-box {
   width: 66px;
   height: 66px;
+}
+.sidebar-logo:hover {
+  transform: scale(1.05);
 }
 
 .nav-link {
@@ -385,6 +406,13 @@ select:focus {
   color: white;
 }
 
+.generate-btn {
+    width: 100%;
+    margin-bottom: 10px;
+    background: var(--green-dark);
+    color: #fff;
+  }
+
 .shopping-item {
   display: grid;
   grid-template-columns: auto 1fr auto auto;
@@ -421,6 +449,77 @@ select:focus {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.view-section {
+  display: contents;
+}
+
+.full-card {
+  grid-column: 1 / -1;
+}
+
+/* ---------- MODALE -------------*/
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 24, 39, 0.45);
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  z-index: 999;
+}
+
+.modal-card {
+  width: min(100%, 460px);
+  background: white;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: var(--shadow);
+}
+
+.modal-card-small {
+  width: min(100%, 380px);
+}
+
+.modal-card h2 {
+  color: var(--green-dark);
+  margin-top: 0;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.btn-secondary {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.modal.hidden {
+  display: none !important;
+}
+
+@media (max-width: 600px) {
+  .modal-card {
+    width: 100%;
+    padding: 18px;
+  }
+
+  .modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .modal-actions .btn {
+    width: 100%;
+  }
 }
 
 /* ---------- RESPONSIVE ---------- */

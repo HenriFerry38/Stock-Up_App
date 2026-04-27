@@ -1,6 +1,8 @@
 <?php
 
-$config = require __DIR__ . '/config.local.php';
+$config = require __DIR__ . '/config.prod.php';
+
+//switch pour config.local.php
 
 $db = $config['db'];
 
@@ -16,9 +18,10 @@ try {
     );
 } catch (PDOException $e) {
     http_response_code(500);
+
     echo json_encode([
         'success' => false,
-        'message' => 'Erreur connexion BDD'
+        'message' => 'Erreur connexion BDD',
     ]);
     exit;
 }
