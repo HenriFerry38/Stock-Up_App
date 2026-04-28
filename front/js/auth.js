@@ -40,7 +40,7 @@ if (loginForm) {
       message.className = "message success";
 
       setTimeout(() => {
-        window.location.href = "index.html";
+        window.location.href = "/stockup/front/index.html";
       }, 700);
 
     } catch (error) {
@@ -101,7 +101,7 @@ if (registerForm) {
       message.className = "message success";
 
       setTimeout(() => {
-        window.location.href = "login.html";
+        window.location.href = "/stockup/front/login.html";
       }, 900);
 
     } catch (error) {
@@ -130,7 +130,7 @@ function isValidEmail(email) {
 function updateBasicHints() {
 
   // NOM
-  if (nomInput) {
+  if (nomInput && nomHint) {
     if (nomInput.value.trim().length === 0) {
       nomHint.className = "form-hint error";
     } else {
@@ -139,7 +139,7 @@ function updateBasicHints() {
   }
 
   // PRENOM
-  if (prenomInput) {
+  if (prenomInput && prenomHint) {
     if (prenomInput.value.trim().length === 0) {
       prenomHint.className = "form-hint error";
     } else {
@@ -148,7 +148,7 @@ function updateBasicHints() {
   }
 
   // EMAIL
-  if (emailInput) {
+  if (emailInput && emailHint) {
     const value = emailInput.value.trim();
 
     if (value.length === 0) {
