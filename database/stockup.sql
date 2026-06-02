@@ -8,7 +8,7 @@ CREATE TABLE utilisateur (
     id_utilisateur INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(100) NOT NULL,
     prenom VARCHAR(100) NOT NULL,
-    email VARCHAR(180) NOT NULL UNIQUE,
+    email VARCHAR(254) NOT NULL UNIQUE,
     mot_de_passe VARCHAR(255) NOT NULL,
     date_inscription DATETIME DEFAULT CURRENT_TIMESTAMP
 );
