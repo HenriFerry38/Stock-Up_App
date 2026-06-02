@@ -22,6 +22,7 @@ try {
     echo json_encode([
         'success' => false,
         'message' => 'Erreur connexion BDD',
+        'debug' => $e->getMessage()
     ]);
     exit;
 }

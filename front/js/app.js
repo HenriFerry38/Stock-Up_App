@@ -1,6 +1,7 @@
-const API = "http://localhost:8080/back/api";
+const API = "https://ferryhenri.alwaysdata.net/stockup/back/api";
 //API_URL Docker = "http://localhost:8080/back/api";
 //API Local Php = "http://localhost:8000/back/api";
+//API AlwaysData = "https://MONCOMPTE.alwaysdata.net/stockup/back/api";
 
 let allProducts = [];
 
@@ -19,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function loadUser() {
   try {
+
     const res = await fetch(`${API}/account.php`, {
       credentials: "include"
     });
@@ -26,7 +28,8 @@ async function loadUser() {
     const data = await res.json();
 
     if (!res.ok) {
-      window.location.href = "login.html";
+
+      window.location.href = "/stockup/front/login.html";
       return;
     }
 
@@ -35,7 +38,7 @@ async function loadUser() {
       `${data.user.prenom} ${data.user.nom}`;
 
   } catch (error) {
-    window.location.href = "login.html";
+    window.location.href = "/stockup/front/login.html";
   }
 }
 
@@ -45,8 +48,6 @@ async function loadProducts() {
   });
 
   const data = await res.json();
-  
-  console.log("API PRODUCTS:", data.products);
 
   allProducts = data.products;
   fillCategoryFilter(allProducts);
@@ -140,7 +141,7 @@ document.getElementById("logout-btn").addEventListener("click", async () => {
     credentials: "include"
   });
 
-  window.location.href = "login.html";
+  window.location.href = "/stockup/front/login.html";
 });
 
 function initNavigation() {
